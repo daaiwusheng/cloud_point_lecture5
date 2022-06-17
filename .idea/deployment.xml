@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="steven@192.168.0.110:22 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="myown_ubuntu">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/code/cloud_point/pointnet/cloud_point_le_5" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="steven@192.168.0.110:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/steven/code/cloud_point/pointnet/cloud_point_le_5" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
