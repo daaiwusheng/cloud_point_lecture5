@@ -29,7 +29,7 @@ val_every = 3
 
 SEED = 13
 batch_size = 75
-epochs = 500
+epochs = 250
 decay_lr_factor = 0.90
 decay_lr_every = 25
 lr = 0.0001
@@ -155,7 +155,7 @@ if __name__ == "__main__":
                 writer.add_scalar('training loss', acc_loss / num_samples, global_step)
                 writer.add_scalar('training acc', acc, global_step)
                 # print( f"loss at epoch {epoch} step {global_step}:{loss.item():3f}, lr:{optimizer.state_dict()['param_groups'][0]['lr']: .6f}, time:{time.time() - start_tic: 4f}sec")
-        scheduler.step()
+        # scheduler.step()
         print(
             f"loss at epoch {epoch}={acc_loss / num_samples:.3f}, lr:{optimizer.state_dict()['param_groups'][0]['lr']: .6f}, time:{time.time() - start_tic: 4f} sec")
 
