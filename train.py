@@ -9,7 +9,7 @@ import datetime
 import torch.nn.functional as F
 
 from dataset import PointNetDataset
-from model import PointNet
+from model import *
 from utility import *
 
 '''
@@ -26,19 +26,21 @@ show_every = 10
 val_every = 3
 '''
 
-
 SEED = 13
-batch_size = 75
+batch_size = 80
 epochs = 250
-decay_lr_factor = 0.90
-decay_lr_every = 25
-lr = 0.0001
+decay_lr_factor = 0.50
+decay_lr_every = 20
+lr = 0.001
 gpus = [0]
 global_step = 0
 show_every = 10
 val_every = 3
 date = datetime.date.today()
 save_dir = "/home/steven/code/cloud_point/pointnet/point_net_log"
+pointnet_name = 'Pointnet'
+drop_out = 0.5
+if_scheduler = 1
 
 
 def save_ckp(ckp_dir, model, optimizer, epoch, best_acc, date):
@@ -101,8 +103,8 @@ def get_eval_acc_results(model, data_loader, device):
 
 
 if __name__ == "__main__":
-    dir_name = f'pointnet_lr_{lr}_batch_size_{batch_size}_epochs_{epochs}' \
-               f'_decay_lr_factor_{decay_lr_factor}_decay_every_{decay_lr_every}_'
+    dir_name = f'{pointnet_name}_drop_{drop_out}_pointnet_lr_{lr}_batch_size_{batch_size}_epochs_{epochs}' \
+               f'_decay_lr_factor_{decay_lr_factor}_decay_every_{decay_lr_every}_if_scheduler_{if_scheduler}'
     dir_need = '/home/steven/code/cloud_point/pointnet/point_net_log/runs/' + dir_name + '/'
     writer = SummaryWriter(dir_need)
     torch.manual_seed(SEED)
@@ -155,7 +157,8 @@ if __name__ == "__main__":
                 writer.add_scalar('training loss', acc_loss / num_samples, global_step)
                 writer.add_scalar('training acc', acc, global_step)
                 # print( f"loss at epoch {epoch} step {global_step}:{loss.item():3f}, lr:{optimizer.state_dict()['param_groups'][0]['lr']: .6f}, time:{time.time() - start_tic: 4f}sec")
-        # scheduler.step()
+        if if_scheduler == 1:
+            scheduler.step()
         print(
             f"loss at epoch {epoch}={acc_loss / num_samples:.3f}, lr:{optimizer.state_dict()['param_groups'][0]['lr']: .6f}, time:{time.time() - start_tic: 4f} sec")
 
